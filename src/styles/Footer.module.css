@@ -108,6 +108,35 @@
   transition: 0s;
 }
 
+:global(.scrollTop) {
+  width: 50px;
+  height: 50px;
+  background: #308aff;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  transform: translateY(50px) scale(.8);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease-in-out;
+  z-index: 1000;
+  box-shadow: inset -5px -5px 15px -8px #000;
+}
+:global(.Dark) :global(.scrollTop) {
+  background: #001b3d;
+  box-shadow: inset 5px 5px 15px -8px #ffffffab;
+}
+:global(.scrollTop) svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+}
+
 @media (max-width: 900px) {
   .footer {
     width: 96%;
@@ -128,5 +157,9 @@
   .copyRight p {
     text-align: justify;
     text-align-last: center;
+  }
+  :global(.scrollTop) {
+    bottom: 25px;
+    right: 25px;
   }
 }
