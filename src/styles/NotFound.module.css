@@ -1,0 +1,32 @@
+.notFound {
+	width: calc(100vw - 40px);
+	height: calc(100vh - 8px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	font-family: "tanha", serif;
+}
+.notFound h1 {
+	font-size: 14rem;
+	line-height: 1;
+	color: #333333;
+}
+.notFound h3 {
+	font-size: 2rem;
+	color: #7c7c7c;
+}
+:global(.Dark) .notFound h1 {
+	color: #d6d6d6;
+}
+:global(.Dark) .notFound h3 {
+	color: #8f8f8f;
+}
+
+@media (max-width: 900px) {
+	.notFound {
+		width: 100vw;
+		height: 100vh;
+	}
+}

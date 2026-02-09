@@ -1,0 +1,132 @@
+.footer {
+  width: 100%;
+  height: fit-content;
+  border-radius: 20px;
+  margin: 20px 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  background-color: #00adb5;
+  gap: 5px;
+}
+:global(.Dark) .footer {
+  color: #fff;
+  background-color: #365486;
+}
+.footer ul {
+  list-style-type: none;
+}
+.footer ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  gap: 5px;
+  transition: 0.2s ease-in-out;
+}
+:global(.Dark) .footer ul li a {
+  color: #ffffff;
+}
+.footer ul li a:hover {
+  color: #002999;
+}
+:global(.Dark) .footer ul li a:hover {
+  color: #001033;
+}
+.footer ul li a svg {
+  transition: 0.2s ease-in-out;
+  color: #000;
+}
+:global(.Dark) .footer ul li a svg {
+  color: #c5c5c5;
+}
+.footer ul li a:hover svg {
+  transform: translateX(-5px);
+}
+
+.footer * {
+  font-family: "tanha", serif;
+}
+.footer .container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 20px;
+}
+.footer .container div {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+}
+.tag {
+  background: #999600;
+  color: #000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.company h1 {
+  margin-top: -10px;
+}
+.company p {
+  text-align: justify;
+  text-align-last: center;
+}
+
+.copyRight {
+  width: 100%;
+  /* display: flex;
+	justify-content: start;
+	align-items: start; */
+  padding: 0 20px;
+}
+.copyRight p span {
+  color: #0015ce;
+}
+:global(.Dark) .copyRight p span {
+  color: #858585;
+}
+.copyRight p svg {
+  transform: translateY(3px);
+}
+:global(.scrollTop).on {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+:global(.scrollTop).on:active {
+  transform: scale(.88);
+  transition: 0s;
+}
+
+@media (max-width: 900px) {
+  .footer {
+    width: 96%;
+    margin: 20px auto 8px;
+    height: fit-content;
+    justify-content: center;
+  }
+  .footer .container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+  }
+  .footer .container div {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .copyRight p {
+    text-align: justify;
+    text-align-last: center;
+  }
+}

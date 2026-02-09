@@ -1,0 +1,102 @@
+.mySvg path {
+  stroke-width: 5px;
+  animation-name: mysvg;
+}
+.mySvg path {
+  color: #000;
+  transition: 0.4s color;
+}
+:global(.Dark) .mySvg path {
+  color: #ffffff;
+  /* animation-name: mysvgDark; */
+}
+.mySvg {
+  /* background: #ffffff; */
+  width: 300px;
+  height: 300px;
+  overflow: visible;
+  line-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .mySvg {
+    /* background: #ffffff; */
+    width: 150px;
+    height: 150px;
+    overflow: visible;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+@keyframes mysvgDark {
+  0% {
+    stroke-dasharray: 1500, 1500;
+    stroke-dashoffset: 1500;
+	fill: #000;
+  }
+  15% {fill: #00000000;}
+  30% {fill: #000000;}
+  50% {
+    stroke-dasharray: 200, -250;
+    stroke-dashoffset: -1500;
+	fill: #00000000;
+  }
+  70% {fill: #000000;}
+  85% {fill: #00000000;}
+  100% {
+    stroke-dasharray: 1500, 1500;
+    stroke-dashoffset: 1500;
+	fill: #000000;
+  }
+}
+@keyframes mysvg {
+  0% {
+    stroke-dasharray: 1500, 1500;
+    stroke-dashoffset: 1500;
+	fill: #000000;
+  }
+  15% {fill: #3cff00;}
+  30% {fill: #0044ff;}
+  50% {
+    stroke-dasharray: 200, -250;
+    stroke-dashoffset: -1500;
+	fill: #00000000;
+  }
+  70% {fill: #00ffdd;}
+  85% {fill: #ff00f2;}
+  100% {
+    stroke-dasharray: 1500, 1500;
+    stroke-dashoffset: 1500;
+	fill: #000000;
+  }
+}
+
+/* .container svg {
+  width: 100px;
+  height: 100px;
+  fill: #00000000;
+} */
+
+/* @keyframes mysvg {
+  0% {
+    stroke-dasharray: 1200, 0;
+    stroke-dashoffset: 250;
+  }
+  30% {
+    stroke-dasharray: 950, 1800;
+    stroke-dashoffset: 950;
+  }
+  90% {
+    stroke-dasharray: 140, 0;
+    stroke-dashoffset: 10;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+    stroke-dashoffset: 300;
+  }
+} */

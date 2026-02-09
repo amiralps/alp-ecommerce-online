@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300..700&display=swap');
+@font-face {
+  font-family: "tanha";
+  src: url("/font/Tanha.eot");
+  /* IE9 Compat Modes */
+  src: url("/font/Tanha.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("/font/Tanha.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/font/Tanha.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("/font/Tanha.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  /* url('webfont.svg#svgFontName') format('svg'); Legacy iOS */
+}
+@font-face {
+  font-family: digikala;
+  src: url(/font/Digikala.eot);
+  src: url(/font/Digikala.eot?#iefix) format("eot"),
+    url(/font/Digikala.woff2) format("woff2"),
+    url(/font/Digikala.woff) format("woff"),
+    url(/font/Digikala.ttf) format("truetype");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main {
+  padding: 4px 20px;
+  background-color: inherit;
+  /* overflow: hidden; */
+}
+/* html {
+  transition: 0.4s background-color;
+} */
+.disable-scroll {
+  overflow: hidden;
+}
+.Dark {
+  background: #000c3d;
+}
+.Dark::selection {
+  background: #ffffff;
+  color: #000;
+}
+button {
+  user-select: none;
+}
+button,input,textarea {
+  font-family: inherit;
+}
+
+.errorPage {
+  color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100dvh - 8px);
+  gap: 50px;
+  text-align: center;
+}
+.errorPage * {
+  font-family: "tanha", serif;
+}
+.errorPage h1 {
+  font-size: 4rem;
+  background: transparent;
+}
+.errorPage button {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 8px 15px;
+  font-size: 1rem;
+  border: none;
+  box-shadow: inset -5px -5px 10px 0 #000000bd;
+  transition: .2s box-shadow;
+  background: #2c76ff;
+  color: #fff;
+}
+.Dark .errorPage button {
+  background: #ffffff;
+  color: #000;
+}
+.errorPage button:active {
+  transform: scale(0.9);
+}
+.errorPage button:hover {
+  box-shadow: inset -6px -6px 18px 0 #000000dc;
+}
+@media (max-width: 900px) {
+  .main {
+    padding: 0;
+  }
+  .errorPage {
+    gap: 20px;
+  }
+  .errorPage h1 {
+    font-size: 2rem;
+  }
+  :global(.scrollTop) {
+    bottom: 25px;
+    right: 25px;
+  }
+}
+
+:global(.scrollTop) {
+  width: 50px;
+  height: 50px;
+  background: #308aff;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  transform: translateY(50px) scale(.8);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease-in-out;
+  z-index: 1000;
+  box-shadow: inset -5px -5px 15px -8px #000;
+}
+:global(.Dark) :global(.scrollTop) {
+  background: #001b3d;
+  box-shadow: inset 5px 5px 15px -8px #ffffffab;
+}
+:global(.scrollTop) svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+}

@@ -1,0 +1,446 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100dvw - 40px);
+  height: calc(100dvh - 8px);
+}
+.main * {
+  font-family: "tanha", serif;
+}
+
+.myForm {
+  /* background: #fff; */
+  width: 725px;
+  height: 480px;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orgForm {
+  width: 99%;
+  height: 98.4%;
+  background: #f3f3f3;
+  z-index: 2;
+  border-radius: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+:global(.Dark) .orgForm {
+  background: #020025;
+}
+
+.border {
+  width: 300px;
+  height: 250%;
+  background: linear-gradient(#ff0000, #ff0000, #0000ff, #0000ff);
+  box-shadow: 0px -650px 25px 35px #ff0000, 0px 650px 25px 35px #0000ff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: neonBorder 6s linear forwards infinite;
+  z-index: 1;
+}
+:global(.Dark) .border {
+  background: linear-gradient(#ff0000, #ff0000, #00ff37, #008817);
+  box-shadow: 0px -650px 25px 35px #ff0000, 0px 650px 25px 35px #00ff37;
+}
+
+@keyframes neonBorder {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.orgForm form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 50px;
+  width: 50%;
+  min-height: 50%;
+  transition: 0.5s ease-in-out;
+  /* opacity: 1; */
+  transition-delay: 0.6s;
+}
+.orgForm .signUpForm {
+  padding-top: 50px;
+}
+.orgForm form button {
+  min-width: 65px;
+  background: transparent;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 1px 10px 5px;
+  font-size: 0.9rem;
+}
+:global(.Dark) .orgForm form button {
+  border: 2px solid #ffffff;
+  color: #fff;
+}
+:global(.Dark) .orgForm form h1 {
+  color: #fff;
+}
+.orgForm form div {
+  display: flex;
+  /* justify-content: center;
+	align-items: center; */
+  flex-direction: column;
+  align-items: start;
+  height: fit-content;
+  padding-bottom: 5px;
+}
+.orgForm form input {
+  width: 240px;
+  outline: none;
+  border: 1.5px solid transparent;
+  background: #cacaca;
+  transition: 0.3s ease-in-out;
+  border-radius: 15px;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  /* direction: ltr; */
+}
+:global(.Dark) .orgForm form input {
+  background: #0066da;
+  color: #fff;
+}
+.orgForm form input:focus,
+.orgForm form input:-webkit-autofill,
+.orgForm form input:-webkit-autofill:hover,
+.orgForm form input:-webkit-autofill:active,
+.orgForm form input:-webkit-autofill:focus,
+.orgForm form input.fill {
+  border-color: #8b8b8b;
+  background: #f3f3f3;
+  -webkit-text-fill-color: #000;
+  -webkit-background-clip: text;
+  caret-color: #000;
+  padding: 0 10px;
+}
+:global(.Dark) .orgForm form input:focus,
+:global(.Dark) .orgForm form input:-webkit-autofill,
+:global(.Dark) .orgForm form input:-webkit-autofill:hover,
+:global(.Dark) .orgForm form input:-webkit-autofill:active,
+:global(.Dark) .orgForm form input:-webkit-autofill:focus,
+:global(.Dark) .orgForm form input.fill {
+  border-color: #ffffff;
+  color: #fff;
+  background: #020025;
+  /* box-shadow: inset 0 0 0 30px #020025; */
+  -webkit-text-fill-color: #fff;
+  -webkit-background-clip: text;
+  caret-color: #fff;
+}
+.orgForm form input:focus + label,
+.orgForm form input.fill + label {
+  transform: translateY(-40px);
+  cursor: default;
+  background: #f3f3f3;
+}
+:global(.Dark) .orgForm form input:focus + label,
+:global(.Dark) .orgForm form input.fill + label {
+  background: #020025;
+}
+.main label {
+  color: #000000;
+  margin-right: 12px;
+  cursor: text;
+  transform: translateY(-20px);
+  transition: 0.3s;
+  height: 15px;
+  line-height: 0.5;
+  user-select: none;
+  cursor: text !important;
+  padding: 0 5px;
+}
+:global(.Dark) .main label {
+  color: #ffffff;
+}
+.switcher {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  background: linear-gradient(155deg, #b9e5ff, #2261c0, #15003b);
+  border-radius: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+  overflow: hidden;
+}
+:global(.Dark) .switcher {
+  background: linear-gradient(155deg, #0380c9, #003f9e, #20005c);
+}
+
+.myForm button {
+  cursor: pointer;
+}
+
+.switcher > div {
+  width: 200%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+  transition-delay: 0.4s;
+}
+.switcher > div div {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 20px;
+  gap: 20px;
+}
+:global(.Dark) .switcher > div div h2 {
+  color: #fff;
+}
+.switcher > div div button {
+  width: fit-content;
+  padding: 5px;
+  border-radius: 8px;
+  min-width: 80px;
+  border: none;
+}
+.switcher > div div button:active {
+  transform: scale(0.95);
+}
+@media (min-width: 901px) {
+  .signUp .switcher {
+    left: 0;
+    border-radius: 38px 15px 15px 38px;
+  }
+  .signIn .switcher {
+    left: 50%;
+    border-radius: 15px 38px 38px 15px;
+  }
+
+  .signUp .switcher > div {
+    transform: translateX(50%);
+  }
+  .orgForm form h1 {
+    margin-bottom: 35px;
+    margin-top: -40px;
+    text-align: center;
+    line-height: 1;
+  }
+}
+
+.signUp .signInForm {
+  /* transform: translateY(-60%); */
+  opacity: 0;
+  transition-delay: 0s;
+  visibility: hidden;
+}
+
+.signIn .signUpForm {
+  /* transform: translateY(-60%); */
+  opacity: 0;
+  transition-delay: 0s;
+  visibility: hidden;
+}
+.orgForm :global(.nameField) {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.orgForm :global(.nameField) input {
+  width: 138px;
+}
+
+/*----------------------
+  ----------------------
+  ----------------------
+  ----------------------
+  ----------------------
+  ⬇⬇⬇  Mobile Point  ⬇⬇⬇
+  ----------------------
+  ----------------------
+  ----------------------
+  ----------------------
+  ----------------------*/
+
+@media (max-width: 900px) {
+  .orgForm .signUpForm {
+    padding-top: 0;
+    margin-top: -20px;
+  }
+  .orgForm .signInForm {
+    padding-top: 60px;
+  }
+  .border {
+    display: none;
+  }
+  .main {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .myForm {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .orgForm {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    border-radius: 0;
+  }
+
+  .switcher {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #6589ff;
+    align-items: center;
+    width: 2000px;
+    height: 250%;
+    border-radius: 50%;
+    /* overflow: hidden; */
+    transition: 1.4s ease-in-out;
+  }
+  :global(.Dark) .switcher {
+    background: #0038d3;
+    color: #d4d4d4;
+  }
+  .switcher > div {
+    /* width: fit-content; */
+    height: 100%;
+    position: fixed;
+    flex-direction: column;
+  }
+  .switcher > div div {
+    padding: 5px 0 15px 0;
+    gap: 10px;
+    transition: 0.4s ease-in-out;
+    transition-delay: 1.5s;
+  }
+  .switcher > div div h2 {
+    line-height: 1.4;
+  }
+  .switcher > div div button {
+    min-width: 65px;
+    padding: 0 10px 3px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .signIn .switcher {
+    transform: translateY(-63%) translate(-50%, -50%);
+  }
+  .signIn .switcher :global(.signIn) {
+    opacity: 0;
+    transition-delay: 0s;
+    transition: 0.15s ease-in-out;
+  }
+  .signUp .switcher {
+    transform: translateY(63%) translate(-50%, -50%);
+  }
+  .signUp .switcher :global(.signUp) {
+    opacity: 0;
+    transition-delay: 0s;
+    transition: 0.15s ease-in-out;
+  }
+
+  /* form */
+  .orgForm form {
+    padding: 20px 0 0 0;
+    width: 100%;
+    min-height: 100%;
+    /* opacity: 1; */
+    transition-delay: 1.3s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .orgForm form button {
+    min-width: 60px;
+    cursor: pointer;
+  }
+  .orgForm form h1 {
+    margin-bottom: 40px;
+    margin-top: -30px;
+    text-align: center;
+  }
+  /* .orgForm form input:focus,
+.orgForm form input.fill {
+  border-color: #8b8b8b;
+  background: #fff;
+} */
+  /* .orgForm form input:focus,
+  .orgForm form input:-webkit-autofill,
+  .orgForm form input:-webkit-autofill:hover,
+  .orgForm form input:-webkit-autofill:active,
+  .orgForm form input:-webkit-autofill:focus,
+  .orgForm form input.fill {
+    border-color: #8b8b8b;
+    box-shadow: inset 0 0 0 30px #fff;
+    -webkit-text-fill-color: #000;
+    -webkit-background-clip: text;
+    caret-color: #000;
+  } */
+  /* :global(.Dark) .orgForm form input:focus,
+  :global(.Dark) .orgForm form input:-webkit-autofill,
+  :global(.Dark) .orgForm form input:-webkit-autofill:hover,
+  :global(.Dark) .orgForm form input:-webkit-autofill:active,
+  :global(.Dark) .orgForm form input:-webkit-autofill:focus,
+  :global(.Dark) .orgForm form input.fill {
+    border-color: #ffffff;
+    color: #fff;
+    box-shadow: inset 0 0 0 30px #000c3d;
+    -webkit-text-fill-color: #fff;
+    -webkit-background-clip: text;
+    caret-color: #fff;
+  } */
+  /* .orgForm form input:focus + label,
+  .orgForm form input.fill + label {
+    transform: translateY(-48px);
+    cursor: default;
+    background: #fff;
+  } */
+  /* :global(.Dark) .orgForm form input:focus + label,
+  :global(.Dark) .orgForm form input.fill + label {
+    background: #000c3d;
+  } */
+  /* .main label {
+    color: #000000;
+    margin-left: 15px;
+    cursor: text;
+    transform: translateY(-30px);
+    transition: 0.3s;
+    height: 20px;
+  } */
+  /* :global(.Dark) .main label {
+    color: #ffffff;
+  } */
+
+  .signUp .signInForm {
+    transition: 0.3s ease-in-out;
+    transition-delay: 0s;
+  }
+  .signIn .signUpForm {
+    transition: 0.3s ease-in-out;
+    transition-delay: 0s;
+  }
+}

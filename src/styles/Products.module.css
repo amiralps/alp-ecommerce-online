@@ -1,0 +1,17 @@
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  justify-content: center;
+  width: 100%;
+  gap: 40px;
+  list-style-type: none;
+  overflow: hidden;
+}
+
+@media (min-width: 320px) and (max-width: 900px) {
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+    column-gap: 10px;
+    row-gap: 20px;
+  }
+}

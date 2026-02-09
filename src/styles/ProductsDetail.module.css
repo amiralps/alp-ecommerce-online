@@ -1,0 +1,135 @@
+/* product details */
+.productDetails {
+  font-family: "tanha", sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+}
+
+/* all colors in this page with Dark mode */
+:global(.Dark) .productDetails {
+  color: #e2e2e2;
+}
+
+.productDAS ul {
+  list-style-type: none;
+}
+
+.colors {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style-type: none;
+}
+
+.colors li div {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #6666664b;
+  z-index: 1;
+}
+
+.colors li {
+  min-width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  /* margin: 0 10px; */
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 8px;
+  border: solid 2px transparent;
+  transition: 0.3s border-color;
+}
+
+.colors li.active {
+  border-color: #000000;
+}
+:global(.Dark) .colors li.active {
+  border-color: #a7a7a7;
+}
+
+@media (min-width: 1024px) {
+  .colors li {
+    padding: 3px;
+    border-radius: 50%;
+  }
+
+  .colors li div {
+    width: 20px;
+    height: 20px;
+  }
+
+  .colors li.active {
+    border: 2px solid #4375ff;
+  }
+  :global(.Dark) .colors li.active {
+    border: 2px solid #c8eeff;
+  }
+}
+
+/* product DAS(Dtails And Sliders) START */
+.productDAS {
+  padding: 20px 50px;
+  display: flex;
+  width: 100%;
+  /* gap: 30px; */
+}
+
+@media (min-width: 901px) {
+  .productDAS {
+    gap: 30px;
+  }
+}
+/* product DAS(Dtails And Sliders) END */
+
+@media (max-width: 900px) {
+  .colors {
+    overflow-x: scroll;
+    justify-content: space-evenly;
+    min-width: 45%;
+    max-width: 80%;
+  }
+
+  .colors::-webkit-scrollbar {
+    display: none;
+  }
+
+  .productDAS {
+    flex-direction: column;
+    position: relative;
+    /* width: 100%; */
+    padding: 0;
+    /* gap: 15px; */
+  }
+
+  .productDetails {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 58px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 10px 1px #00000080;
+    align-items: center;
+    gap: 20px;
+    background-color: #fff;
+    z-index: 2;
+    /* margin-top: 370px; */
+  }
+  :global(.Dark) .productDetails {
+    box-shadow: 0 -4px 10px 1px #ffffff80;
+    background-color: #000c3d;
+  }
+
+  .productDetails p.description {
+    padding: 0 25px;
+  }
+}
+
+.productDetails p.description {
+  text-align: justify;
+  font-size: 1rem;
+}

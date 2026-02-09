@@ -1,0 +1,327 @@
+"use client";
+
+import styles from "@/styles/Login.module.css";
+// import {useDispatch, useSelector} from "react-redux";
+// import {logIn} from "@/features/login/loginSlice.js";
+import {useSignerForm} from "./formContext";
+import {signIn} from "next-auth/react";
+import toast from "react-hot-toast";
+// import { boxDataUpdater } from "@/helper/helper";
+export default function SignIn() {
+  const [loginForm, setLoginForm] = useSignerForm();
+  // const dispatch = useDispatch();
+  // const {selectedItems, itemsCounter, totalCount} = useSelector(
+  //   (state) => state.cart
+  // );
+  async function signInHandler(e) {
+    e.preventDefault();
+    const {userNameOrEmail, password} = loginForm.signIn;
+    // toast.dismiss()
+    
+    // const d = await boxDataUpdater(totalCount,itemsCounter,selectedItems);
+    // console.log(d)
+
+    if (userNameOrEmail.length && password.length > 8) {
+      // dispatch(logIn());
+      // location.replace("/");
+      // const data = await fetch(`/api/users/sign-in`, {
+      //   method: "POST",
+      //   body: JSON.stringify({...loginForm.signIn}),
+      //   headers: {"Content-Type": "application/json"},
+      // }).then((res) => res.json());
+      // console.log(data);
+      const id = toast.loading("درحال پردازش...", {
+        id: "loading",
+      });
+      const res = await signIn("credentials", {
+        userNameOrEmail,
+        password,
+        // box: JSON.stringify({selectedItems,itemsCounter,totalCount}),
+        redirect: false,
+      });
+      if (res.error) {
+        toast.error(res.error, {
+          id,
+        });
+      } else {
+        toast.success("ورود موفق ، در حال انتقال به سایت", {
+          id,
+        });
+        const timer = setTimeout(() => {
+          location.replace("/");
+          clearTimeout(timer);
+        }, 2200);
+      }
+    } else {
+      if (!userNameOrEmail.length && password.length < 8) {
+        return toast.error("نام کاربری و رمز ورود نامعتبر اند!", {
+          id: "toast-error",
+        });
+      } else if (!userNameOrEmail.length) {
+        return toast.error("لطفا نام کاربری را وارد کنید", {
+          id: "toast-error",
+        });
+      } else if (!password.length) {
+        return toast.error("لطفا رمز ورود را وارد کنید", {
+          id: "toast-error",
+        });
+      } else if (password.length < 8) {
+        return toast.error("رمز ورود باید بیشتر از 8 حرف باشد", {
+          id: "toast-error",
+        });
+      }
+    }
+  }
+  function valueChanger(e) {
+    setLoginForm({
+      ...loginForm,
+      signIn: {...loginForm.signIn, [`${e.target.name}`]: e.target.value},
+    });
+  }
+  // if (userLogin) return history.back();
+  return (
+    <>
+      <div>
+        <input
+          name="userNameOrEmail"
+          spellCheck={false}
+          className={loginForm.signIn.userNameOrEmail ? styles.fill : null}
+          value={loginForm.signIn.userNameOrEmail}
+          type="text"
+          id="nameOrEmail"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="nameOrEmail">نام کاربری یا ایمیل</label>
+      </div>
+      <div>
+        <input
+          name="password"
+          // autocomplete="off"
+          className={loginForm.signIn.password ? styles.fill : null}
+          value={loginForm.signIn.password}
+          type="password"
+          id="signInPassword"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="signInPassword">رمز عبور</label>
+      </div>
+      <button
+        onClick={(e) => {
+          signInHandler(e);
+        }}>
+        ورود
+      </button>
+    </>
+  );
+}
+
+// ****************
+// **** signUp ****
+// ****************
+export const SignUp = () => {
+  const [loginForm, setLoginForm] = useSignerForm();
+  async function signUpHandler(e) {
+    e.preventDefault();
+    const {userName, password, email, repeatPass} = loginForm.signUp;
+    if (
+      userName.length &&
+      password.length > 8 &&
+      email &&
+      password === repeatPass
+    ) {
+      // dispatch(logIn());
+      // location.replace("/");
+      const id = toast.loading("در حال پردازش اطلاعات ...", {
+        id: "signUpLoading",
+      });
+      const data = await fetch(`/api/users`, {
+        method: "POST",
+        body: JSON.stringify({...loginForm.signUp}),
+        headers: {"Content-Type": "application/json"},
+      }).then((res) => res.json());
+      if (!data.error) {
+        const res = await signIn("credentials", {
+          userNameOrEmail: userName,
+          password,
+          redirect: false,
+        });
+        if (!res.error) {
+          toast.success(data.message, {
+            id,
+            // style: {
+            //   textAlign: "center"
+            // },
+          });
+          const signUpRedirect = setTimeout(() => {
+            location.replace("/");
+            clearTimeout(signUpRedirect);
+          }, 2200);
+        } else {
+          toast.error(res.error, {
+            id,
+          });
+        }
+      } else {
+        toast.error(data.error, {
+          id,
+        });
+      }
+    } else {
+      if (!userName.length && !password.length && !email)
+        return toast.error("لطفا اطلاعات خواسته شده را با دقت وارد کنید");
+      if (password.length < 8)
+        return toast.error("رمز عبور باید 8 حرف یا بیشتر داشته باشد");
+      if (password !== repeatPass)
+        return toast.error("رمز عبور و تکرار آن برابر نیست!");
+    }
+  }
+  function valueChanger(e) {
+    setLoginForm({
+      ...loginForm,
+      signUp: {...loginForm.signUp, [`${e.target.name}`]: e.target.value},
+    });
+  }
+  return (
+    <>
+      <div className="nameField">
+        <div>
+          <input
+            name="name"
+            spellCheck={false}
+            className={loginForm.signUp.name ? styles.fill : null}
+            value={loginForm.signUp.name}
+            type="text"
+            id="name"
+            onChange={(e) => {
+              valueChanger(e);
+            }}
+          />
+          <label htmlFor="name">نام</label>
+        </div>
+        <div>
+          <input
+            name="lastName"
+            spellCheck={false}
+            className={loginForm.signUp.lastName ? styles.fill : null}
+            value={loginForm.signUp.lastName}
+            type="text"
+            id="lastName"
+            onChange={(e) => {
+              valueChanger(e);
+            }}
+          />
+          <label htmlFor="lastName">نام خانوادگی</label>
+        </div>
+      </div>
+      <div>
+        <input
+          name="userName"
+          // autocomplete="off"
+          className={loginForm.signUp.userName ? styles.fill : null}
+          value={loginForm.signUp.userName}
+          type="text"
+          id="userName"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="userName">نام کاربری</label>
+      </div>
+      <div>
+        <input
+          name="email"
+          // autocomplete="off"
+          className={loginForm.signUp.email ? styles.fill : null}
+          value={loginForm.signUp.email}
+          type="text"
+          id="email"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="email">ایمیل</label>
+      </div>
+      <div>
+        <input
+          name="password"
+          // autocomplete="off"
+          className={loginForm.signUp.password ? styles.fill : null}
+          value={loginForm.signUp.password}
+          type="password"
+          id="signUpPassword"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="signUpPassword">رمز عبور</label>
+      </div>
+      <div>
+        <input
+          name="repeatPass"
+          // autocomplete="off"
+          className={loginForm.signUp.repeatPass ? styles.fill : null}
+          value={loginForm.signUp.repeatPass}
+          type="password"
+          id="repeatPass"
+          onChange={(e) => {
+            valueChanger(e);
+          }}
+        />
+        <label htmlFor="repeatPass">تکرار رمز عبور</label>
+      </div>
+      <button
+        onClick={(e) => {
+          signUpHandler(e);
+        }}>
+        ثبت نام
+      </button>
+    </>
+  );
+};
+// **********************
+// *******switcher*******
+// **********************
+export const Switcher = () => {
+  const classChanger = () => {
+    const myDiv = document.querySelector(`.${styles.orgForm}`);
+    if (myDiv.className.includes(styles.signIn)) {
+      myDiv.classList.remove(styles.signIn);
+      myDiv.classList.add(styles.signUp);
+    } else if (myDiv.className.includes(styles.signUp)) {
+      myDiv.classList.remove(styles.signUp);
+      myDiv.classList.add(styles.signIn);
+    }
+  };
+  // const [loginForm, setLoginForm] = useSignerForm();
+  return (
+    <>
+      <div className="signIn">
+        <h2>حساب کاربری دارم</h2>
+        <button
+          onClick={() => {
+            classChanger();
+            // setLoginForm({...loginForm, signUp: {name: "", lastName: "", email: "", userName: "", password: ""}})
+          }}>
+          ورود
+        </button>
+      </div>
+      <div className="signUp">
+        <h2>حساب کاربری ندارم</h2>
+        <button
+          onClick={() => {
+            // setLoginForm({
+            //   ...loginForm,
+            //   signIn: {userNameOrEmail: "", password: ""},
+            // });
+            classChanger();
+          }}>
+          ثبت نام
+        </button>
+      </div>
+    </>
+  );
+};
