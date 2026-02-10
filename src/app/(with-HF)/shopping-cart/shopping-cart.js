@@ -18,7 +18,7 @@ function ShoppingCartComponent({data: products}) {
     (state) => state.cart
   );
   useEffect(() => {
-  queueMicrotask(() => setIsLoaded(true));
+    queueMicrotask(() => setIsLoaded(true));
   }, []);
   if (
     (!selectedItems.length && status === "unauthenticated") ||
@@ -98,15 +98,17 @@ function ShoppingCartComponent({data: products}) {
                             <div
                               style={{
                                 background: products
-                                  .find((i) => i._id == item.product)
-                                  .colors.find((c) => c.name == color.name)
-                                  .code,
+                                  .find((i) => i._id === item.product)
+                                  .colors.find((c) => {
+                                    // console.log(c?.color + "==" + color.color);
+                                    return c.color === color.color;
+                                  }).code,
                               }}></div>
                             <p>
                               {
                                 products
-                                  .find((i) => i._id == item.product)
-                                  .colors.find((c) => c.name == color.name)
+                                  .find((i) => i._id === item.product)
+                                  .colors.find((c) => c.color === color.color)
                                   .namecolor
                               }
                             </p>
@@ -117,7 +119,7 @@ function ShoppingCartComponent({data: products}) {
                                 colorPick: products
                                   .find((i) => i._id == item.product)
                                   .colors.findIndex(
-                                    (c) => c.name == color.name
+                                    (c) => c.color == color.color
                                   ),
                                 thisCart: null,
                                 dispatch,
