@@ -104,7 +104,16 @@ button,input,textarea {
 .Dark .toast-alert {
   background: #00013a;
   color: #fff;
+  border: 1px solid #fff;
   border-right: 4px solid #fff;
   border-left: 4px solid #fff;
   /* border-radius: 10px; */
+}
+
+.error-toast {
+  border-color: #ff2828 !important;
+}
+
+.success-toast {
+  border-color: #00df00 !important;
 }

@@ -17,7 +17,7 @@ export default function SignIn() {
     e.preventDefault();
     const {userNameOrEmail, password} = loginForm.signIn;
     // toast.dismiss()
-    
+
     // const d = await boxDataUpdater(totalCount,itemsCounter,selectedItems);
     // console.log(d)
 
@@ -32,6 +32,7 @@ export default function SignIn() {
       // console.log(data);
       const id = toast.loading("درحال پردازش...", {
         id: "loading",
+        className: "toast-alert",
       });
       const res = await signIn("credentials", {
         userNameOrEmail,
@@ -42,10 +43,12 @@ export default function SignIn() {
       if (res.error) {
         toast.error(res.error, {
           id,
+          className: "toast-alert error-toast",
         });
       } else {
         toast.success("ورود موفق ، در حال انتقال به سایت", {
           id,
+          className: "toast-alert success-toast",
         });
         const timer = setTimeout(() => {
           location.replace("/");
@@ -54,20 +57,28 @@ export default function SignIn() {
       }
     } else {
       if (!userNameOrEmail.length && password.length < 8) {
-        return toast.error("نام کاربری و رمز ورود نامعتبر اند!", {
+        return toast.error("نام کاربری و رمز عبور نامعتبر اند!", {
           id: "toast-error",
+          className: "toast-alert error-toast",
+          icon: "❗❗",
         });
       } else if (!userNameOrEmail.length) {
         return toast.error("لطفا نام کاربری را وارد کنید", {
           id: "toast-error",
+          className: "toast-alert error-toast",
+          icon: "❗❗",
         });
       } else if (!password.length) {
-        return toast.error("لطفا رمز ورود را وارد کنید", {
+        return toast.error("لطفا رمز عبور را وارد کنید", {
           id: "toast-error",
+          className: "toast-alert error-toast",
+          icon: "❗❗",
         });
       } else if (password.length < 8) {
         return toast.error("رمز ورود باید بیشتر از 8 حرف باشد", {
           id: "toast-error",
+          className: "toast-alert error-toast",
+          icon: "❗❗",
         });
       }
     }
@@ -127,16 +138,12 @@ export const SignUp = () => {
   async function signUpHandler(e) {
     e.preventDefault();
     const {userName, password, email, repeatPass} = loginForm.signUp;
-    if (
-      userName &&
-      password.length > 8 &&
-      email &&
-      password === repeatPass
-    ) {
+    if (userName && password.length > 8 && email && password === repeatPass) {
       // dispatch(logIn());
       // location.replace("/");
       const id = toast.loading("در حال پردازش اطلاعات ...", {
         id: "signUpLoading",
+        className: "toast-alert",
       });
       const data = await fetch(`/api/users`, {
         method: "POST",
@@ -152,6 +159,7 @@ export const SignUp = () => {
         if (!res.error) {
           toast.success(data.message, {
             id,
+            className: "toast-alert success-toast",
             // style: {
             //   textAlign: "center"
             // },
@@ -163,23 +171,34 @@ export const SignUp = () => {
         } else {
           toast.error(res.error, {
             id,
+            className: "toast-alert error-toast",
           });
         }
       } else {
         toast.error(data.error, {
           id,
+          className: "toast-alert error-toast",
         });
       }
     } else {
       if (!userName || !password || !email)
         return toast.error("لطفا اطلاعات خواسته شده را با دقت وارد کنید", {
-      id: "error"});
+          id: "error",
+          icon: "❗❗",
+          className: "toast-alert error-toast",
+        });
       if (password.length < 8)
         return toast.error("رمز عبور باید 8 حرف یا بیشتر داشته باشد", {
-      id: "error"});
+          id: "error",
+          icon: "❗❗",
+          className: "toast-alert error-toast",
+        });
       if (password !== repeatPass)
         return toast.error("رمز عبور و تکرار آن برابر نیست!", {
-      id: "error"});
+          id: "error",
+          icon: "❗❗",
+          className: "toast-alert error-toast",
+        });
     }
   }
   function valueChanger(e) {
