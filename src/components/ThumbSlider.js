@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import Image from "next/image";
 
 function ThumbSlider({data: product}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -25,7 +26,8 @@ function ThumbSlider({data: product}) {
         className={styles.productImagesSwiper}>
         {product.images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img className={styles.image} src={image} alt={product.title} />
+            <Image className={styles.image} src={image} alt={product.title} width={1500} height={1500} />
+            {/* <img className={styles.image} src={image} alt={product.title} /> */}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -42,7 +44,8 @@ function ThumbSlider({data: product}) {
         className={styles.productImagesPagination}>
         {product.images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img className={styles.image} src={image} alt={product.title} />
+            <Image className={styles.image} src={image} alt={product.title} width={40} height={40} />
+            {/* <img className={styles.image} src={image} alt={product.title} /> */}
           </SwiperSlide>
         ))}
       </Swiper>

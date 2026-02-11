@@ -128,7 +128,7 @@ export const SignUp = () => {
     e.preventDefault();
     const {userName, password, email, repeatPass} = loginForm.signUp;
     if (
-      userName.length &&
+      userName &&
       password.length > 8 &&
       email &&
       password === repeatPass
@@ -171,12 +171,15 @@ export const SignUp = () => {
         });
       }
     } else {
-      if (!userName.length && !password.length && !email)
-        return toast.error("لطفا اطلاعات خواسته شده را با دقت وارد کنید");
+      if (!userName || !password || !email)
+        return toast.error("لطفا اطلاعات خواسته شده را با دقت وارد کنید", {
+      id: "error"});
       if (password.length < 8)
-        return toast.error("رمز عبور باید 8 حرف یا بیشتر داشته باشد");
+        return toast.error("رمز عبور باید 8 حرف یا بیشتر داشته باشد", {
+      id: "error"});
       if (password !== repeatPass)
-        return toast.error("رمز عبور و تکرار آن برابر نیست!");
+        return toast.error("رمز عبور و تکرار آن برابر نیست!", {
+      id: "error"});
     }
   }
   function valueChanger(e) {

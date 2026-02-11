@@ -9,11 +9,12 @@ import {
   increment,
   decrement,
 } from "@/features/cart/cartSlice.js";
-import {useTransition} from "react";
+import {useState, useTransition} from "react";
 import {useSession} from "next-auth/react";
-import { useShoppingCart } from "@/context/shopContext";
+import {useShoppingCart} from "@/context/shopContext";
 function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
   const [shoppingCart, setShoppingCart] = useShoppingCart();
+  const [isBtnOpen, setIsBtnOpen] = useState(false);
   const {status} = useSession();
   const [isPending, startTransition] = useTransition();
   const addToBox = () => {
@@ -52,9 +53,7 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
     if (status === "authenticated") {
       return (
         shoppingCart?.items
-          ?.find(
-            (item) => item.product === data._id
-          )
+          ?.find((item) => item.product === data._id)
           ?.colors?.find((c) => c.color === data.colors[colorPick].color)
           ?.quantity || 0
       );
@@ -69,17 +68,20 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
         {/* add and increase */}
         <button
           className={`${styles.putBtn}${
-            itemQuantity() ? ` ${styles.active}` : ""
+            itemQuantity() || isBtnOpen ? ` ${styles.active}` : ""
           }`}
           onClick={() => {
             if (!isPending) {
               if (status === "unauthenticated") {
-                !itemQuantity()
-                  ? dispatch(addItem({data, colorIndex: colorPick}))
-                  : dispatch(increment({data, colorIndex: colorPick}));
+                if (!itemQuantity()) {
+                  dispatch(addItem({data, colorIndex: colorPick}));
+                } else {
+                  dispatch(increment({data, colorIndex: colorPick}));
+                }
               } else if (status === "authenticated") {
                 if (itemQuantity() !== data.colors[colorPick].inventory)
                   addToBox();
+                if (itemQuantity() === 0) setIsBtnOpen(true);
               }
             }
           }}>
@@ -98,7 +100,7 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
         {/* decrease and remove */}
         <button
           className={`${styles.popBtn}${
-            itemQuantity() == 1
+            itemQuantity() == 1 || (!itemQuantity() && isBtnOpen)
               ? ` ${styles.active}`
               : itemQuantity() > 1
               ? ` ${styles.active + " " + styles.morethan1}`
@@ -107,11 +109,14 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
           onClick={() => {
             if (!isPending) {
               if (status === "unauthenticated") {
-                itemQuantity() > 1
-                  ? dispatch(decrement({data, colorIndex: colorPick}))
-                  : dispatch(removeItem({data, colorIndex: colorPick}));
+                if (itemQuantity() > 1) {
+                  dispatch(decrement({data, colorIndex: colorPick}));
+                } else {
+                  dispatch(removeItem({data, colorIndex: colorPick}));
+                }
               } else if (status === "authenticated") {
                 if (itemQuantity() > 0) removeFromBox();
+                if (itemQuantity() === 1) setIsBtnOpen(false);
               }
             }
           }}>

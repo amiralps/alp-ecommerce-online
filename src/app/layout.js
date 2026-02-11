@@ -42,6 +42,7 @@ export default function RootLayout({children}) {
                 style: {
                   fontFamily: "tanha, serif",
                 },
+                className: "toast-alert"
               }}
             />
           </ShoppingCartContext>

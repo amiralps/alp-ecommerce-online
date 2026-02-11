@@ -3,6 +3,7 @@ import {useEffect, useRef} from "react";
 import {priceFormat} from "@/helper/helper";
 import styles from "@/styles/Card.module.css";
 import Link from "next/link";
+import Image from "next/image";
 export default function Card({data: {_id, title, images, colors}}) {
   const card = useRef(null);
   function scroller() {
@@ -76,12 +77,11 @@ export default function Card({data: {_id, title, images, colors}}) {
     <li ref={card} className={styles.li}>
       <Link className={styles.link} href={`/products/${_id}`}>
         <div className={styles.card}>
-          <img
+          <Image className={styles.bgimage} src={images[0]} alt={title} width={350} height={350} />
+          {/* <img
             loading="lazy"
             decoding="async"
-            className={styles.bgimage}
-            src={images[0]}
-            alt={title}></img>
+            ></img> */}
           <h1>{title}</h1>
           <p>{priceFormat(colors[0].price)}</p>
         </div>

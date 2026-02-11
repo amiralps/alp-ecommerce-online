@@ -101,3 +101,10 @@ button,input,textarea {
     font-size: 2rem;
   }
 }
+.Dark .toast-alert {
+  background: #00013a;
+  color: #fff;
+  border-right: 4px solid #fff;
+  border-left: 4px solid #fff;
+  /* border-radius: 10px; */
+}

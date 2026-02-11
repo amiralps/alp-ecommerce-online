@@ -8,6 +8,7 @@ import {checkOut as doCheckOut} from "@/features/cart/cartSlice";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import {useShoppingCart} from "@/context/shopContext";
+import Image from "next/image";
 function ShoppingCartComponent({data: products}) {
   const [shoppingCart, setShoppingCart] = useShoppingCart();
   const {status} = useSession();
@@ -79,7 +80,7 @@ function ShoppingCartComponent({data: products}) {
                     <Fragment key={color._id}>
                       <li>
                         <Link href={`/products/${item.product}`}>
-                          <img
+                          <Image
                             src={
                               products.find((i) => i._id == item.product)
                                 .images[0]
@@ -87,7 +88,18 @@ function ShoppingCartComponent({data: products}) {
                             alt={
                               products.find((i) => i._id == item.product).title
                             }
+                            width={150}
+                            height={150}
                           />
+                          {/* <img
+                            src={
+                              products.find((i) => i._id == item.product)
+                                .images[0]
+                            }
+                            alt={
+                              products.find((i) => i._id == item.product).title
+                            }
+                          /> */}
                         </Link>
                         <div className={styles.cartDTLBTN}>
                           <h1>
@@ -100,7 +112,6 @@ function ShoppingCartComponent({data: products}) {
                                 background: products
                                   .find((i) => i._id === item.product)
                                   .colors.find((c) => {
-                                    // console.log(c?.color + "==" + color.color);
                                     return c.color === color.color;
                                   }).code,
                               }}></div>
