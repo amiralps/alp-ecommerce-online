@@ -16,8 +16,10 @@ import {resizer} from "@/helper/helper.js";
 import {useSession} from "next-auth/react";
 import {RotatingLines} from "react-loader-spinner";
 import {useShoppingCart} from "@/context/shopContext";
+import { usePathname } from "next/navigation";
 
 function Header() {
+  const pathName = usePathname();
   const [shoppingCart] = useShoppingCart();
   const {status} = useSession();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -102,7 +104,7 @@ function Header() {
             <ul>
               <li>
                 {/* navlink */}
-                <Link
+                <Link className={pathName === "/" ? "active" : ""}
                   onClick={() => {
                     scrollTop();
                   }}
@@ -112,7 +114,7 @@ function Header() {
               </li>
               <li>
                 {/* navlink */}
-                <Link
+                <Link className={pathName === "/products" ? "active" : ""}
                   onClick={() => {
                     scrollTop();
                   }}
@@ -158,7 +160,7 @@ function Header() {
               </li>
               <li className="cart">
                 {/* navlink */}
-                <Link
+                <Link className={pathName === "/shopping-cart" ? "active" : ""}
                   onClick={() => {
                     scrollTop();
                   }}
@@ -266,7 +268,7 @@ function Header() {
                 </button>
                 <div className="cart">
                   {/* navlink */}
-                  <Link
+                  <Link className={pathName === "/shopping-cart" ? "active" : ""}
                     href="/shopping-cart"
                     onClick={() => {
                       classRemover();
@@ -287,7 +289,7 @@ function Header() {
               </li>
               <li className={TMStyle.URLs}>
                 {/* navlink */}
-                <Link
+                <Link className={pathName === "/" ? "active" : ""}
                   href={"/"}
                   onClick={() => {
                     classRemover();
@@ -297,7 +299,7 @@ function Header() {
               </li>
               <li className={TMStyle.URLs}>
                 {/* navlink */}
-                <Link
+                <Link className={pathName === "/products" ? "active" : ""}
                   href={"/products"}
                   onClick={() => {
                     classRemover();
