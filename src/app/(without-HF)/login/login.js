@@ -167,10 +167,16 @@ export const SignUp = () => {
             //   textAlign: "center"
             // },
           });
+          await boxDataUpdater(
+            totalCount,
+            itemsCounter,
+            selectedItems,
+            favoriteItems
+          );
           const signUpRedirect = setTimeout(() => {
             location.replace("/");
             clearTimeout(signUpRedirect);
-          }, 2200);
+          }, 200);
         } else {
           toast.error(res.error, {
             id,

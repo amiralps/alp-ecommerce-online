@@ -310,7 +310,7 @@ export const PUT = async (req) => {
     } = session;
     connectDB();
     const {totalPrice, totalCounts, items, favorites} = body;
-    const user = await User.findOne(id);
+    const user = await User.findById(id);
     const posts = await Post.find().lean();
     if (!user.shoppingCart) {
       if ((totalCounts && totalPrice && items.length) || favorites.length) {
@@ -370,6 +370,7 @@ export const PUT = async (req) => {
     }
     return NextResponse.json({error: "عملیات با خطا مواجه شد"}, {status: 400});
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       {error: "خطایی رخ داده است", errorMessage: err.message},
       {status: 500}
