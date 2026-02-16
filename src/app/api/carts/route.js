@@ -88,10 +88,7 @@ const POST = async (req) => {
     }
     if (method === "CHECK_OUT") {
       try {
-        if (
-          !user?.shoppingCart.favorites.length &&
-          user?.shoppingCart.items.length
-        ) {
+        if (!user?.shoppingCart.favorites.length) {
           await Cart.findByIdAndDelete(user.shoppingCart);
           user.shoppingCart = null;
           await user.save();
@@ -104,7 +101,7 @@ const POST = async (req) => {
           cart.items = [];
           await cart.save();
           return NextResponse.json(
-            {message: "موفق!", text: "سبد حذف شد!", error: null},
+            {message: "موفق!", ...cart._doc},
             {status: 200}
           );
         }
@@ -200,17 +197,26 @@ const POST = async (req) => {
           }
           // ;;;;;;;;;;;;;;;;;
           if (
-            cart.items.length === 1 &&
-            cart.items[thisCart].colors.length === 1 &&
-            cart.items[thisCart].colors[thisColor].quantity === 1
+            cart.items.length <= 1 &&
+            cart.items[thisCart].colors.length <= 1 &&
+            cart.items[thisCart].colors[thisColor].quantity <= 1
           ) {
-            await Cart.findByIdAndDelete(user.shoppingCart);
-            user.shoppingCart = null;
-            await user.save();
-            return NextResponse.json(
-              {message: "موفق!", text: "سبد حذف شد!"},
-              {status: 200}
-            );
+            if (!cart.favorites.length) {
+              await Cart.findByIdAndDelete(user.shoppingCart);
+              user.shoppingCart = null;
+              await user.save();
+              return NextResponse.json(
+                {message: "موفق!", text: "سبد حذف شد!"},
+                {status: 200}
+              );
+            } else {
+              cart.items = [];
+              await cart.save();
+              return NextResponse.json(
+                {message: "موفق!", ...cart._doc},
+                {status: 200}
+              );
+            }
           }
           if (
             cart.items[thisCart].colors.length === 1 &&
