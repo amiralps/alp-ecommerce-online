@@ -41,6 +41,7 @@ export const authOptions = {
         if (!isValid) throw new Error("رمز عبور نامعتبر است!");
         return {
           userName: user.userName,
+          id: user._id,
           // email: user.email,
           // name: user.name,
           // lastName: user.lastName,
@@ -52,6 +53,7 @@ export const authOptions = {
     async jwt({token, user}) {
       if (user) {
         token.userName = user.userName;
+        token.id = user.id;
         // token.email = user.email;
         // token.name = user.name;
         // token.lastName = user.lastName;
@@ -62,6 +64,7 @@ export const authOptions = {
     async session({session, token}) {
       session.user = {
         userName: token.userName,
+        id: token.id,
         // email: token.email,
         // name: token.name,
         // lastName: token.lastName,

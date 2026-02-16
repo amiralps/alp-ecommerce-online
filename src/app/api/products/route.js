@@ -5,7 +5,7 @@ import {NextResponse} from "next/server";
 async function GET() {
   connectDB();
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().lean();
     return NextResponse.json(posts);
   } catch (err) {
     return NextResponse.json({error: err.message},{status: 404});

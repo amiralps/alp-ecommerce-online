@@ -8,8 +8,7 @@ const cartSchema = new Schema({
       colors: [{color: String, quantity: Number}],
     },
   ],
-  totalPrice: Number,
-  totalCounts: Number,
+  favorites: [{type: Schema.Types.ObjectId, ref: "Post"}],
   updatedAt: {
     type: Schema.Types.Date,
     default: () => Date.now(),

@@ -1,25 +1,22 @@
 "use client";
 
 import styles from "@/styles/Login.module.css";
-// import {useDispatch, useSelector} from "react-redux";
+import {/* useDispatch,  */ useSelector} from "react-redux";
 // import {logIn} from "@/features/login/loginSlice.js";
 import {useSignerForm} from "./formContext";
 import {signIn} from "next-auth/react";
 import toast from "react-hot-toast";
-// import { boxDataUpdater } from "@/helper/helper";
+import {boxDataUpdater} from "@/helper/helper";
 export default function SignIn() {
   const [loginForm, setLoginForm] = useSignerForm();
   // const dispatch = useDispatch();
-  // const {selectedItems, itemsCounter, totalCount} = useSelector(
-  //   (state) => state.cart
-  // );
+  const {selectedItems, itemsCounter, totalCount, favoriteItems} = useSelector(
+    (state) => state.cart
+  );
   async function signInHandler(e) {
     e.preventDefault();
     const {userNameOrEmail, password} = loginForm.signIn;
     // toast.dismiss()
-
-    // const d = await boxDataUpdater(totalCount,itemsCounter,selectedItems);
-    // console.log(d)
 
     if (userNameOrEmail.length && password.length > 8) {
       // dispatch(logIn());
@@ -50,10 +47,16 @@ export default function SignIn() {
           id,
           className: "toast-alert success-toast",
         });
+        await boxDataUpdater(
+          totalCount,
+          itemsCounter,
+          selectedItems,
+          favoriteItems
+        );
         const timer = setTimeout(() => {
           location.replace("/");
           clearTimeout(timer);
-        }, 2200);
+        }, 200);
       }
     } else {
       if (!userNameOrEmail.length && password.length < 8) {

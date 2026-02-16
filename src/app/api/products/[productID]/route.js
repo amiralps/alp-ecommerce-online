@@ -6,7 +6,7 @@ export async function GET(req, {params}) {
   const {productID: id} = await params;
   if (Number(id)) {
     connectDB();
-    const post = await Post.findOne({id: id});
+    const post = await Post.findOne({id: id}).lean();
     if (post) {
       return NextResponse.json(post);
     }

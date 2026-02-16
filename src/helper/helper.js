@@ -18,7 +18,12 @@ export const resizer = (width, maxWidth = 900) => {
   return result;
 };
 
-export const boxDataUpdater = async (totalPrice, totalCounts, selectedItems) => {
+export const boxDataUpdater = async (
+  totalPrice,
+  totalCounts,
+  selectedItems,
+  favoriteItems
+) => {
   const boxData = {
     totalPrice,
     totalCounts,
@@ -30,13 +35,15 @@ export const boxDataUpdater = async (totalPrice, totalCounts, selectedItems) => 
           return {color: c.color, quantity: c.quantity};
         }),
     })),
+    favorites: favoriteItems.map((item) => item._id),
   };
   const data = await fetch("/api/carts", {
     method: "PUT",
     body: JSON.stringify(boxData),
     headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(res => res.json())
-  return data
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
+  if (!data?.error) localStorage.removeItem("productsState");
+  return data;
 };

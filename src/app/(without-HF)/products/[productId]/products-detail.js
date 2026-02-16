@@ -12,8 +12,12 @@ import ThumbSlider from "@/components/ThumbSlider.js";
 import {priceFormat, resizer} from "@/helper/helper.js";
 import {LiaShoppingCartSolid} from "react-icons/lia";
 import {favorite} from "@/features/cart/cartSlice.js";
+import {useSession} from "next-auth/react";
+import {useShoppingCart} from "@/context/shopContext";
 function ProductsDetailComponent({data, data: {_id}}) {
   const [isMobile, setIsMobile] = useState(false);
+  const [shoppingCart, setShoppingCart] = useShoppingCart();
+  const {status} = useSession();
   const [colorName, setColorName] = useState(data.colors[0].color);
   const dispatch = useDispatch();
   const cartStatus = useSelector((state) => state.cart);
@@ -66,12 +70,39 @@ function ProductsDetailComponent({data, data: {_id}}) {
             <LiaShoppingCartSolid />
           </Link>
           <button
-            className={
-              !cartStatus.favoriteItems.find((item) => item._id === data._id)
-                ? null
-                : styles2.inFavorites
-            }
-            onClick={() => dispatch(favorite(data))}>
+            className={(() => {
+              if (status === "unauthenticated") {
+                if (
+                  !cartStatus.favoriteItems.find(
+                    (item) => item._id === data._id
+                  )
+                ) {
+                  return null;
+                } else {
+                  return styles2.inFavorites;
+                }
+              } else if (status === "authenticated") {
+                if (!shoppingCart?.favorites?.length) return null;
+                if (shoppingCart.favorites.find((fav) => fav === data._id))
+                  return styles2.inFavorites;
+                return null;
+              }
+            })()}
+            onClick={() => {
+              if (status === "unauthenticated") dispatch(favorite(data));
+              if (status === "authenticated")
+                fetch("/api/carts", {
+                  method: "POST",
+                  body: JSON.stringify({method: "FIVES", product: data._id}),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    setShoppingCart(data);
+                  });
+            }}>
             <GoHeart />
             <GoHeartFill className={styles2.fillHeart} />
           </button>

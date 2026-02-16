@@ -3,13 +3,12 @@
 import {Provider as ReduxProvider} from "react-redux";
 import store from "../store/store.js";
 import {useEffect} from "react";
-import {handleTheme} from "@/helper/theme-handler.js";
 import BoxReader from "@/components/boxReader.js";
 import {SessionProvider} from "next-auth/react";
 
 function Provider({children}) {
   useEffect(() => {
-    handleTheme();
+    window.scrollTo({top: 0})
   }, []);
   return (
     <SessionProvider>

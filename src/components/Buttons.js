@@ -9,7 +9,7 @@ import {
   increment,
   decrement,
 } from "@/features/cart/cartSlice.js";
-import {useState, useTransition} from "react";
+import {useEffect, useState, useTransition} from "react";
 import {useSession} from "next-auth/react";
 import {useShoppingCart} from "@/context/shopContext";
 function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
@@ -17,6 +17,9 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
   const [isBtnOpen, setIsBtnOpen] = useState(false);
   const {status} = useSession();
   const [isPending, startTransition] = useTransition();
+  useEffect(() => {
+    if (isBtnOpen) setIsBtnOpen(false);
+  }, [colorPick]);
   const addToBox = () => {
     startTransition(async () => {
       const res = await fetch("/api/carts", {
@@ -116,7 +119,7 @@ function Buttons({data: {colorPick, thisCart, dispatch, data}}) {
                 }
               } else if (status === "authenticated") {
                 if (itemQuantity() > 0) removeFromBox();
-                if (itemQuantity() === 1) setIsBtnOpen(false);
+                if (itemQuantity() >= 1) setIsBtnOpen(false);
               }
             }
           }}>
