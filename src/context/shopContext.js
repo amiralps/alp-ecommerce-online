@@ -11,6 +11,16 @@ function ShoppingCartContext({children}) {
       fetch("/api/carts")
         .then((res) => res.json())
         .then((data) => setShoppingCart(data));
+      const handler = () => {
+        if (document.visibilityState === "visible") {
+          console.log(status);
+          fetch("/api/carts")
+            .then((res) => res.json())
+            .then((data) => setShoppingCart(data));
+        }
+      };
+      document.addEventListener("visibilitychange", () => handler());
+      return document.removeEventListener("visibilitychange", () => handler());
     }
   }, [status]);
 
